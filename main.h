@@ -4,6 +4,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <stdlib.h>
+#define BUFF_SIZE 1024
 
 /**
  * struct print - struct for printer functions
@@ -15,11 +16,20 @@
  */
 typedef struct print
 {
-	char *type_arg;
-	int (*f)(va_list, char *, unsigned int);
+    char *type_arg;
+    int (*f)(va_list, char *, unsigned int);
 } print_t;
 
+int _putchar(char c);
 int _printf(const char *format, ...);
+int print_string(char *s);
+int get_flags(const char *format, int *i);
+int get_width(const char *format, int *i, va_list list);
+int get_precision(const char *format, int *i, va_list list);
+int get_size(const char *format, int *i);
+int handle_print(const char *format, int *i, va_list list,
+                 char buffer[], int flags, int width,
+                 int precision, int size);
 int print_prg(va_list __attribute__((unused)), char *, unsigned int);
 int print_chr(va_list arguments, char *buf, unsigned int ibuf);
 int print_str(va_list arguments, char *buf, unsigned int ibuf);
@@ -59,3 +69,4 @@ char *fill_short_oct_array(char *bnr, char *oct);
 char *fill_hex_array(char *bnr, char *hex, int isupp, int limit);
 
 #endif
+
