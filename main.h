@@ -1,35 +1,31 @@
-#ifndef _MAIN_H_
-#define _MAIN_H_
+#ifndef MAIN_H
+#define MAIN_H
 
 #include <stdarg.h>
+#include <stdio.h>
 #include <unistd.h>
-#include <stdlib.h>
+
+#define UNUSED(x) (void)(x)
 #define BUFF_SIZE 1024
 
-/**
- * struct print - struct for printer functions
- * @type_arg: identifier
- * @f: pointer to a printer functions
- *
- * Description: struct that stores pointers to a
- * printer functions.
- */
-typedef struct print
-{
-    char *type_arg;
-    int (*f)(va_list, char *, unsigned int);
-} print_t;
+/* FLAGS */
+#define F_MINUS  1
+#define F_PLUS   2
+#define F_ZERO   4
+#define F_HASH   8
+#define F_SPACE 16
+
+/* SIZES */
+#define S_LONG  2
+#define S_SHORT 1
 
 int _putchar(char c);
 int _printf(const char *format, ...);
 int print_string(char *s);
 int get_flags(const char *format, int *i);
 int get_width(const char *format, int *i, va_list list);
-int get_precision(const char *format, int *i, va_list list);
 int get_size(const char *format, int *i);
-int handle_print(const char *format, int *i, va_list list,
-                 char buffer[], int flags, int width,
-                 int precision, int size);
+int handle_print(const char *format, int *i, va_list list, char buffer[], int flags, int width, int precision, int size);
 int print_prg(va_list __attribute__((unused)), char *, unsigned int);
 int print_chr(va_list arguments, char *buf, unsigned int ibuf);
 int print_str(va_list arguments, char *buf, unsigned int ibuf);
@@ -68,5 +64,12 @@ char *fill_long_oct_array(char *bnr, char *oct);
 char *fill_short_oct_array(char *bnr, char *oct);
 char *fill_hex_array(char *bnr, char *hex, int isupp, int limit);
 
-#endif
+// Function declarations
+int get_flags(const char *format, int *i);
+int get_width(const char *format, int *i, va_list list);
+int get_precision(const char *format, int *i, va_list list);
+int get_size(const char *format, int *i);
+int handle_print(const char *format, int *i, va_list list, char buffer[], int flags, int width, int precision, int size);
+
+#endif /* MAIN_H */
 
